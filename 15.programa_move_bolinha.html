@@ -1,0 +1,32 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+    pincel.fillStyle = 'lightgray';
+    pincel.fillRect(0, 0, 600, 400);
+
+    function desenhaCirculo(posicaoX,posicaoY,raio){
+        
+        pincel.fillStyle = 'blue';
+        pincel.beginPath();
+        pincel.arc(posicaoX,posicaoY,raio, 0, 2*Math.PI);
+        pincel.fill();
+    }
+
+    function limpaTela(){
+        pincel.clearRect(0,0,600,400);
+    }
+
+    
+    // O comando for é muito rápido e não nos passa a impressão de animação
+    for(var posicaoX = 20; posicaoX<600; posicaoX++){
+
+        desenhaCirculo(posicaoX,20,10);
+    }
+
+
+    
+
+</script>

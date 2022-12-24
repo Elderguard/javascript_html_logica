@@ -1,0 +1,71 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+
+    //acessando a tela
+    var tela = document.querySelector('canvas');
+    
+    //criacao do pincel
+    var pincel = tela.getContext('2d');
+    pincel.fillStyle = 'lightgray';
+    pincel.fillRect(0, 0, 600, 400);
+
+    //posicao inicial da bolinha
+    var posicaoX = 20;
+    var posicaoY = 20;
+
+    //códigos do teclado
+    var esquerda =37;
+    var cima = 38;
+    var direita =39;
+    var baixo = 40;
+
+    //taxa de incremento
+    var taxa = 10;
+
+    //funcao que desenha a bolinha
+    function desenhaCirculo(posicaoX, posicaoY, raio) {
+
+        pincel.fillStyle = 'blue';
+        pincel.beginPath();
+        pincel.arc(posicaoX, posicaoY, raio, 0, 2 * Math.PI);
+        pincel.fill();
+    }
+
+    //limpeza da tela para proximo frame
+    function limpaTela() {
+
+        pincel.clearRect(0, 0, 600, 400);
+    }
+
+    //atualizacao da tela
+    function atualizaTela() {
+
+        limpaTela();
+        desenhaCirculo(posicaoX, posicaoY, 10);
+    }
+
+    setInterval(atualizaTela, 20);
+
+    //funcao que identifica teclas pressionadas
+    function leDoTeclado(evento) {
+        if(evento.keyCode == cima) {
+
+            posicaoY = posicaoY - taxa;
+
+        } else if (evento.keyCode == baixo) {
+
+            posicaoY = posicaoY + taxa;
+
+        } else if (evento.keyCode == esquerda) {
+
+            posicaoX = posicaoX - taxa;
+
+        } else if (evento.keyCode == direita) {
+
+            posicaoX = posicaoX + taxa;
+        }
+    }
+    document.onkeydown = leDoTeclado;
+
+</script>

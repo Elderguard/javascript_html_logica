@@ -1,0 +1,88 @@
+<canvas width="600" height="400"></canvas>
+
+<script>
+    var tela = document.querySelector('canvas');
+    var pincel = tela.getContext('2d');
+
+    pincel.fillStyle = 'grey';
+    pincel.fillRect(0,0, 600, 400);
+
+    var desenha = false;
+    var cores = ['blue', 'red', 'green'];
+    var indiceCorAtual = 0;
+    //se a variável raio for declarada aqui, a tecla Shift irá adicionar ao raio como alteração fixa
+    var raio = 10;
+    
+    function desenhaCirculo(evento) {
+                
+        if (desenha) {
+            var x = evento.pageX - tela.offsetLeft;
+            var y = evento.pageY - tela.offsetTop;
+            //se a variável raio for declarada aqui, a tecla Shift irá alternar o valor de raio entre o valor declarado e a atribuição de evento
+            //var raio = 10;
+            
+            if(evento.shiftKey && evento.altKey) {
+                alert('Aperte apenas uma das teclas por vez, por favor.');
+            } else
+                if (evento.shiftKey) {
+                    raio=raio+10;
+                    if(raio>40){
+                        raio=40;
+                    }
+            } else
+                if (evento.altKey) {
+                    raio=raio-5;
+                    if(raio<10){
+                        raio=10;
+                    }
+            }
+
+            pincel.fillStyle = cores[indiceCorAtual];
+            pincel.beginPath();
+            pincel.arc(x,y,raio,0,2*3.14);
+            pincel.fill();
+            console.log(x + ',' + y);
+        
+        }
+    }
+
+    function mudaCor() {
+                indiceCorAtual++;
+                if(indiceCorAtual>2) {
+                    indiceCorAtual=0;
+                }
+            return false;
+            }
+
+    tela.onmousemove = desenhaCirculo;
+
+    //function habilitaDesenhar (){
+    //    desenha = true;
+    //}
+
+    //function desabilitaDesenhar (){
+    //    desenha = false;
+    //}
+    
+
+    //tela.onmousedown = habilitaDesenhar;
+    //tela.onmousedown = desabilitaDesenhar;
+    tela.oncontextmenu = mudaCor;
+
+    function habilitaDesenhar() {
+
+        desenha = true;
+    }
+
+    function desabilitaDesenhar() {
+
+        desenha = false;
+    }
+
+    tela.onmousedown = habilitaDesenhar;
+
+    tela.onmouseup = desabilitaDesenhar;
+</script>
+
+
+</script>
